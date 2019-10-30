@@ -65,7 +65,8 @@ class HashTable:
         else:
             while current.next is not None:
                 if current.next.key == key:
-                    print(f"Key of {key} already exists")
+                    print(f"Replaceing value of key {key} with {value}")
+                    current.next.value = value
                     return
                 else:
                     current = current.next
@@ -116,6 +117,21 @@ class HashTable:
 
 
     def retrieve(self, key):
+        index = self._hash_mod(key)
+        current = self.storage[index]
+        if current == None:
+            print('Printing None')
+            return None
+        else:
+            while current.next is not None:
+                if current.key == key:
+                    print("Value from retrieve: ", current.value)
+                    return current.value
+                else:
+                    current = current.next
+            return current.value
+        
+        # return self.storage[index].value
         '''
         Retrieve the value stored with the given key.
 
