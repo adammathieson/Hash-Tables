@@ -32,8 +32,12 @@ class HashTable:
 
         OPTIONAL STRETCH: Research and implement DJB2
         '''
-        pass
+        # hash_value = 5381
 
+        # for char in key:
+        #     hash_value = ((hash_value << 5) + hash_value) + char
+        # return hash_value
+        pass
 
     def _hash_mod(self, key):
         '''
@@ -44,6 +48,52 @@ class HashTable:
 
 
     def insert(self, key, value):
+        index = self._hash_mod(key)
+        current = self.storage[index]
+        # print("current---->", current)
+        # print("storage++++>", self.storage)
+        if current == None:
+            # print("Index --- [][][][][] --->", index)
+            self.storage[index] = LinkedPair(key, value)
+            # for i in index:
+            #     print('////////////in the index: ', i)
+        elif current.next is None:
+            current.next = LinkedPair(key, value)
+            # prev = current
+            # pr
+            # print("This object has a next attr: ", current.next, current.next.key)
+        else:
+            while current.next is not None:
+                if current.next.key == key:
+                    print(f"Replaceing value of key {key} with {value}")
+                    current.next.value = value
+                    return
+                else:
+                    current = current.next
+            current.next = LinkedPair(key, value)
+            # print("added another LinkedPair to end of linked list: ", current.next.key)
+
+        # elif current.next.key == key:
+        #     print("ERROR: key is already in storage!")
+        # else:
+        #     for i, kv in enumerate(self.storage[index]):
+        #         print("iiiiiiiiiiiii", i)
+        #     print("There's something there........", self.storage[index].value)
+
+
+            
+            # index = LinkedPair(key, value)
+            # self.storage.append(index)
+            # print("Appended storage with index of: ", index.value)
+
+        # for i, kv in slot.list():
+        #     k, v = kv
+        #     if k == key:
+        #         print("key exists>>>>>>>>>>", k, key)
+        #     else:
+        #         slot.append((key, value))
+            # print("Here =====>", kv)
+
         '''
         Store the value with the given key.
 
@@ -67,6 +117,21 @@ class HashTable:
 
 
     def retrieve(self, key):
+        index = self._hash_mod(key)
+        current = self.storage[index]
+        if current == None:
+            print('Printing None')
+            return None
+        else:
+            while current.next is not None:
+                if current.key == key:
+                    print("Value from retrieve: ", current.value)
+                    return current.value
+                else:
+                    current = current.next
+            return current.value
+        
+        # return self.storage[index].value
         '''
         Retrieve the value stored with the given key.
 
